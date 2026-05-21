@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../IMAGES/favicon.gif" type="image/x-icon" />
+<title>Matrix Rain Effect</title>
+<meta property="og:title" content="Matrix Rain Effect">
+<meta property="og:description" content="Experience the Matrix rain effect in your browser.">
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background-color: black;
+  }
+  canvas {
+    display: block;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+</style>
+</head>
+<body>
+<canvas id="matrix"></canvas>
+
+<script>
+  // Define canvas and context
+  var canvas = document.getElementById('matrix');
+  var ctx = canvas.getContext('2d');
+
+  // Set canvas dimensions
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+
+  canvas.width = width;
+  canvas.height = height;
+
+  // Define characters for the rain
+  var characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  characters += 'ąćęłńóśźżĄĆĘŁŃÓŚŹŻ'; // Add Polish characters
+
+  // Array to store column positions and speeds of raindrops
+  var drops = [];
+
+  // Define color for the raindrops
+  var color = '#00FF00'; // Matrix-like green
+
+  // Function to draw a raindrop with trailing effect
+  function drawRaindrop(x, y, alpha) {
+    ctx.fillStyle = color;
+    ctx.font = '20px monospace'; // Adjust font size
+    ctx.fillText(characters[Math.floor(Math.random() * characters.length)], x, y);
+
+    // Draw trailing effect
+    for (var i = 1; i <= 3; i++) {
+      ctx.fillStyle = 'rgba(0, 0, 0, ' + (0.1 * i) + ')'; // Adjust opacity
+      ctx.fillText(characters[Math.floor(Math.random() * characters.length)], x, y - (i * 20));
+    }
+  }
+
+  // Function to update the rain animation
+  function update() {
+    // Clear canvas with low fade effect
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; // Adjust fade effect
+    ctx.fillRect(0, 0, width, height);
+
+    // Draw and update raindrops
+    drops.forEach(function(drop) {
+      drawRaindrop(drop.x, drop.y, Math.random());
+      drop.y = (drop.y + drop.speed) % height;
+    });
+  }
+
+  // Animation loop
+  function animate() {
+    update();
+    requestAnimationFrame(animate);
+  }
+
+  // Initialize raindrops
+  for (var i = 0; i < Math.floor(width / 40) * 4; i++) {
+    drops.push({
+      x: Math.floor(Math.random() * width),
+      y: Math.floor(Math.random() * height),
+      speed: Math.random() * 7 + 3 // Adjust speed
+    });
+  }
+
+  // Start animation
+  animate();
+</script>
+</body>
+</html>
+<!--     ᲼╱|、 
+         (˚ˎ。7
+         |、˜〵 
+         じしˍ,)ノ KIBBY GROUP!-->

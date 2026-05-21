@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="icon" href="../IMAGES/favicon.gif" type="image/x-icon" />
+<title>Windows Fake BSOD</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #0078d7;
+    color: white;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    overflow: hidden;
+    flex-direction: column;
+  }
+
+  .container {
+    max-width: 600px;
+    text-align: left;
+  }
+
+  .sad-face {
+    font-size: 5rem;
+    line-height: 1;
+    margin-bottom: 1rem;
+    user-select: none;
+  }
+
+  .main-text {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    user-select: none;
+  }
+
+  .loading-text {
+    font-size: 1.2rem;
+    font-weight: 400;
+    user-select: none;
+  }
+
+  .small-text {
+    font-size: 0.9rem;
+    color: #cce6ff;
+    margin-top: 3rem;
+    user-select: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="container" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="sad-face" aria-hidden="true">:(</div>
+  <div class="main-text">
+    Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you.
+  </div>
+  <div class="loading-text" id="loading">0% complete</div>
+  <div class="small-text">
+    For more information about this issue, visit <a href="https://www.windows.com/stopcode" style="color: #a9d1ff; text-decoration: underline;" target="_blank" rel="noopener noreferrer">https://www.windows.com/stopcode</a><br>
+    If you call a support person, give them this info:<br>
+    Stop code: DRIVER_IRQL_NOT_LESS_OR_EQUAL
+  </div>
+</div>
+
+<script>
+  let progress = 0;
+  const loadingEl = document.getElementById('loading');
+
+  function updateLoading() {
+    progress++;
+    loadingEl.textContent = progress + '% complete';
+    if (progress < 100) {
+      setTimeout(updateLoading, 100 + Math.random() * 150);
+    } else {
+      // Redirect to matrix page located in same folder
+      window.location.href = '../EasterEggs/Matrix.html';
+    }
+  }
+
+  updateLoading();
+
+  function requestFullScreen() {
+    const el = document.documentElement;
+    if (el.requestFullscreen) {
+      el.requestFullscreen();
+    } else if (el.webkitRequestFullscreen) {
+      el.webkitRequestFullscreen();
+    } else if (el.msRequestFullscreen) {
+      el.msRequestFullscreen();
+    }
+  }
+
+  setTimeout(requestFullScreen, 500);
+</script>
+
+</body>
+</html>
+<!--     ᲼╱|、 
+         (˚ˎ。7  
+         |、˜〵 
+         じしˍ,)ノ KIBBY GROUP!-->

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="../IMAGES/favicon.gif" type="image/x-icon" />
+<title>Lunix Terminal</title>
+<style>
+  body {
+    background-color: #000;
+    color: #0f0;
+    font-family: monospace;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  #terminal {
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+  }
+  #output {
+    white-space: pre-wrap;
+    min-height: 300px;
+    margin-bottom: 10px;
+    overflow-y: auto;
+    max-height: 70vh;
+  }
+  #input-line {
+    display: flex;
+    z-index: 10;
+    position: relative;
+  }
+  #prompt {
+    flex-shrink: 0;
+  }
+  #command-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #0f0;
+    flex-grow: 1;
+    font-family: monospace;
+    font-size: 1em;
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+<div id="terminal">
+  <div id="output"></div>
+  <div id="input-line">
+    <span id="prompt">user@lunix:~$&nbsp;</span>
+    <input type="text" id="command-input" autofocus autocomplete="off" spellcheck="false" />
+  </div>
+</div>
+
+<script>
+  const output = document.getElementById('output');
+  const input = document.getElementById('command-input');
+
+  function spinner(duration = 2000, callback) {
+    const frames = ['|', '/', '-', '\\'];
+    let i = 0;
+    const start = Date.now();
+    function spin() {
+      if (Date.now() - start < duration) {
+        output.innerHTML = output.innerHTML.trimEnd() + frames[i % frames.length] + '\r';
+        i++;
+        setTimeout(spin, 100);
+      } else {
+        output.innerHTML = output.innerHTML.trimEnd() + ' \n';
+        if (callback) callback();
+      }
+      output.scrollTop = output.scrollHeight;
+    }
+    spin();
+  }
+
+  function asciiArt() {
+    return `
+      .--.
+     |o_o |
+     |:_/ |
+    //   \\ \\
+   (|     | )
+  /'\\_   _/\\'
+  \\___)=(___/
+`;
+  }
+
+  const easterEggs = {
+    'RemiLunaBravoAndLeah<3 MaPSecret': () => {
+      output.innerHTML += 'Access granted. Redirecting to maps.html...\n';
+      setTimeout(() => window.location.href = 'maps.html', 1000);
+    },
+    'sudo make me a sandwich': () => {
+      output.innerHTML += 'Okay. Sandwich made. 🥪\n';
+    },
+    'ls -la': () => {
+      output.innerHTML += 'total 42\n' +
+                          'drwxr-xr-x  5 user user 4096 Jan  7 10:00 .\n' +
+                          'drwxr-xr-x 10 user user 4096 Jan  7 09:50 ..\n' +
+                          '-rw-r--r--  1 user user  123 Jan  7 09:59 README.txt\n' +
+                          '-rw-r--r--  1 user user  456 Jan  7 09:58 secret.txt\n';
+    },
+    'cat secret.txt': () => {
+      output.innerHTML += 'The cake is a lie. But the pizza is real. 🍕\n';
+    },
+    'fortune': () => {
+      const fortunes = [
+        "You will write the best code today.",
+        "Beware the bugs lurking in the shadows.",
+        "A new terminal command will surprise you soon.",
+        "Code hard, deploy harder.",
+        "Someone is watching your keystrokes... Just kidding!",
+        "A hidden feature lies beyond your eyes.",
+        "Coffee is the secret ingredient to success.",
+        "Error 404: Fortune not found.",
+      ];
+      const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+      output.innerHTML += randomFortune + '\n';
+    },
+    'xyzzy': () => {
+      output.innerHTML += 'Nothing happens.\n';
+    },
+    'reboot': () => {
+      output.innerHTML += 'Rebooting... Just kidding. Try again later.\n';
+    },
+    'hello': () => {
+      output.innerHTML += 'Hello, human. The Lunix terminal greets you.\n';
+    },
+    'hack the planet': () => {
+      output.innerHTML += 'Initiating planet hack sequence...\n';
+      spinner(3000, () => output.innerHTML += 'Access Denied: You are not authorized.\n');
+    },
+    'sudo rm -rf /': () => {
+      output.innerHTML += 'Nope. Not today, hacker. 🛡️\n';
+    },
+    'open the pod bay doors': () => {
+      output.innerHTML += 'I’m sorry, Dave. I’m afraid I can’t do that.\n';
+    },
+    'dance': () => {
+      output.innerHTML += '💃🕺 The terminal is dancing... \n';
+      let danceFrames = ['(>^_^)>', '<(^_^<)', '^(^_^)^', 'v(^_^)v'];
+      let i = 0;
+      const danceInterval = setInterval(() => {
+        output.innerHTML = output.innerHTML.trimEnd() + danceFrames[i % danceFrames.length] + '\r';
+        i++;
+        output.scrollTop = output.scrollHeight;
+        if (i > 12) {
+          clearInterval(danceInterval);
+          output.innerHTML = output.innerHTML.trimEnd() + '\nDance complete!\n';
+        }
+      }, 300);
+    },
+    'sudo apt-get install magic': () => {
+      output.innerHTML += 'Installing magic...\n';
+      spinner(2500, () => output.innerHTML += 'Magic installed successfully. ✨\n');
+    },
+    'time': () => {
+      const now = new Date();
+      output.innerHTML += `Current Lunix time: ${now.toLocaleTimeString()}\n`;
+    },
+    'weather': () => {
+      const weatherStates = ['sunny', 'rainy', 'cloudy', 'stormy', 'snowy', 'windy'];
+      const randomWeather = weatherStates[Math.floor(Math.random() * weatherStates.length)];
+      output.innerHTML += `Weather report: It’s ${randomWeather} in Lunix world today.\n`;
+    },
+    'sudo coffee': () => {
+      output.innerHTML += 'Brewing coffee... ☕\n';
+      spinner(1500, () => output.innerHTML += 'Coffee is ready. Stay energized!\n');
+    },
+    '99ce327b-95c2-4739-ae17-f0def04461d3': () => {
+      output.innerHTML += 'Access to The Matrix granted. Redirecting...\n';
+      setTimeout(() => {
+        window.location.href = 'Matrix.html';
+      }, 1000);
+    },
+    'cat owl.txt': () => {
+      output.innerHTML += asciiArt() + '\n';
+    },
+    'secret handshake': () => {
+      output.innerHTML += '🤝 Secret handshake initiated...\n';
+      setTimeout(() => output.innerHTML += 'Handshake complete. Welcome!\n', 2000);
+    },
+    'system status': () => {
+      output.innerHTML += 'System status: All systems operational. 🟢\n';
+    },
+    'flip coin': () => {
+      const result = Math.random() > 0.5 ? 'Heads' : 'Tails';
+      output.innerHTML += `Coin flip result: ${result}\n`;
+    },
+    'sudo dance party': () => {
+      output.innerHTML += '💃🕺 Dance party started! Everyone join in!\n';
+      let i = 0;
+      let danceFrames = ['(>^_^)>', '<(^_^<)', '^(^_^)^', 'v(^_^)v'];
+      const interval = setInterval(() => {
+        output.innerHTML = output.innerHTML.trimEnd() + danceFrames[i % danceFrames.length] + '\r';
+        i++;
+        output.scrollTop = output.scrollHeight;
+        if (i > 20) {
+          clearInterval(interval);
+          output.innerHTML = output.innerHTML.trimEnd() + '\nDance party ended. 🥳\n';
+        }
+      }, 200);
+    },
+    'sudo enlighten me': () => {
+      const quotes = [
+        "The only true wisdom is in knowing you know nothing. - Socrates",
+        "Code is like humor. When you have to explain it, it’s bad. - Cory House",
+        "First, solve the problem. Then, write the code. - John Johnson",
+        "Experience is the name everyone gives to their mistakes. - Oscar Wilde",
+      ];
+      const quote = quotes[Math.floor(Math.random() * quotes.length)];
+      output.innerHTML += quote + '\n';
+    },
+    'shutdown': () => {
+      output.innerHTML += 'Shutting down Lunix... Just kidding! 😜\n';
+    }
+  };
+
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      const command = input.value.trim();
+      output.innerHTML += `user@lunix:~$ ${command}\n`;
+
+      if (easterEggs[command]) {
+        easterEggs[command]();
+      } else {
+        output.innerHTML += `bash: ${command}: command not found\n`;
+      }
+      input.value = '';
+      output.scrollTop = output.scrollHeight;
+    }
+  });
+</script>
+</body>
+</html>
+<!--     ᲼╱|、 
+         (˚ˎ。7  
+         |、˜〵 
+         じしˍ,)ノ KIBBY GROUP!-->

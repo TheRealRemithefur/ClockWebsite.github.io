@@ -1,0 +1,353 @@
+/*Every Page CSS*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+/* Reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+nav {
+  background: rgba(20, 25, 35, 0.85);
+  backdrop-filter: saturate(180%) blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+nav .logo {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  height: 40px;
+}
+
+nav .logo img {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  background-color: #1de9b6;
+  color: #0f2027;
+  box-shadow: 0 0 10px #1de9b6;
+}
+
+/* Main container */
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;
+  padding: 40px 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Clock container */
+.clock-container {
+  flex: 1 1 400px;
+  min-width: 320px;
+  background: rgba(255 255 255 / 0.1);
+  border-radius: 20px;
+  padding: 60px;
+  box-shadow: 0 0 40px rgba(255 255 255 / 0.3);
+  color: white;
+  max-width: 500px;
+
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical centering */
+  align-items: center;     /* horizontal centering */
+}
+
+.time {
+  font-size: 6rem;
+  letter-spacing: 10px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.date {
+  font-size: 1.8rem;
+  margin-top: 20px;
+  font-weight: 500;
+  color: #bbb;
+}
+
+.blink {
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Cards container */
+.cards-container {
+  flex: 1 1 400px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+}
+
+a.card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  box-shadow: 0 0 25px rgba(118, 75, 162, 0.7);
+  text-decoration: none;
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 20px 40px;
+  user-select: none;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  max-width: 480px;
+}
+
+a.card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(60deg, #ff5858, #f09819, #ff5858, #f09819);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+  filter: blur(25px);
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+  border-radius: 20px;
+  z-index: 0;
+}
+
+a.card:hover {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 0 50px rgba(118, 75, 162, 1);
+}
+
+a.card:hover::before {
+  opacity: 1;
+}
+
+a.card > .icon {
+  font-size: 3.5rem;
+  z-index: 1;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  main {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .clock-container,
+  .cards-container {
+    max-width: 90vw;
+  }
+
+  a.card {
+    max-width: 100%;
+    font-size: 1.5rem;
+    padding: 18px 30px;
+  }
+
+  a.card > .icon {
+    font-size: 3rem;
+  }
+
+  .time {
+    font-size: 5rem;
+  }
+
+  .date {
+    font-size: 1.4rem;
+  }
+}
+
+/*About me CSS code*/
+/* Profile picture styling */
+    .profile-pic-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      object-fit: cover;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+    }
+    body main > *:not(.profile-pic-container) {
+        background: rgba(15, 32, 39, 0.65);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+
+        border-radius: 18px;
+        padding: 28px 32px;
+        margin-bottom: 30px;
+
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+        transform: none;
+    }
+
+    /* Hover polish */
+    body main > *:not(.profile-pic-container):hover {
+         transform: translateY(-2px);
+    }
+
+ /* ===== Icon-only social links ===== */
+.social-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 16px;
+}
+
+/* Base icon button */
+.icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+
+  background-color: rgba(255, 255, 255, 0.08);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%; /* 🔥 THIS RESIZES SVGs */
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hover polish */
+.icon:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* ===== Platform icons ===== */
+.icon.discord {
+  background-image: url("../Images/discord.svg");
+}
+.icon.youtube {
+  background-image: url("../Images/youtube.svg");
+}
+.icon.twitch {
+  background-image: url("../Images/twitch.svg");
+}
+.icon.twitter {
+  background-image: url("../Images/x.svg");
+}
+.icon.vrchat {
+  background-image: url("../Images/vrchat.svg");
+}
+.icon.roblox {
+  background-image: url("../Images/roblox.svg");
+}
+
+.icon.BlueSky {
+  background-image: url("../Images/bluesky.svg");
+}
+
+.icon.Remi {
+  background-image: url("../Images/firefoxbrowser.svg");
+}
+
+.icon.TPCS {
+  background-image: url("../Images/json.svg");
+}
+
+/* ===== Glow colors ===== */
+.icon.discord:hover { box-shadow: 0 0 22px #4352f6; }
+.icon.Remi:hover { box-shadow: 0 0 22px #4352f6; }
+.icon.TPCS:hover { box-shadow: 0 0 22px #4352f6; }
+.icon.youtube:hover { box-shadow: 0 0 22px #FF0000; }
+.icon.twitch:hover  { box-shadow: 0 0 22px #7d2bf7; }
+.icon.twitter:hover { box-shadow: 0 0 22px #1b394d; }
+.icon.vrchat:hover  { box-shadow: 0 0 22px #00EAFF; }
+.icon.roblox:hover  { box-shadow: 0 0 22px #538ce1; }
+.icon.BlueSky:hover  { box-shadow: 0 0 22px #1f038e; }
+
+.icon {
+  width: 48px;
+  height: 48px;
+}
+
+.icon:hover {
+  filter: drop-shadow(0 0 12px currentColor);
+}
+

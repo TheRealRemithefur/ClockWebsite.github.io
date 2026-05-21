@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clockwebsite - Home</title>
+  <link rel="icon" href="../IMAGES/favicon.gif" type="image/x-icon" />
+  <link rel="stylesheet" href="../CSS/Main.css" />
+</head>
+<body>
+
+<nav>
+  <a href="../HTML/Home.html" class="logo" aria-label="Clockwebsite Home">
+    <img src="../IMAGES/ClockWebsiteLogo.gif" alt="Clockwebsite Logo" />
+  </a>
+  <ul>
+    <li><a href="../HTML/Home.html" class="active" aria-current="page">Home</a></li>
+    <li><a href="../HTML/Games.html">Games</a></li>
+    <li><a href="../HTML/about.html">About Me</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="clock-container" role="region" aria-label="Digital Clock">
+    <div class="time" role="timer" aria-live="polite" id="time-display">
+      <span id="hours">00</span><span class="blink">:</span><span id="minutes">00</span><span class="blink">:</span><span id="seconds">00</span>
+    </div>
+    <div class="date" id="date-display"></div>
+  </section>
+
+  <section class="cards-container" aria-label="Site navigation cards">
+    <a href="../HTML/Games.html" class="card" aria-label="Go to Game 1 page">
+      <div class="icon">🎮</div>
+      Games
+    </a>
+
+    <a href="../HTML/about.html" class="card" aria-label="Go to About Me page">
+      <div class="icon">👤</div>
+      About Me
+    </a>
+  </section>
+</main>
+
+<script>
+  function updateClock() {
+    const now = new Date();
+    let h = now.getHours();
+    let m = now.getMinutes();
+    let s = now.getSeconds();
+
+    // Format with leading zeros
+    h = h < 10 ? '0' + h : h;
+    m = m < 10 ? '0' + m : m;
+    s = s < 10 ? '0' + s : s;
+
+    document.getElementById('hours').textContent = h;
+    document.getElementById('minutes').textContent = m;
+    document.getElementById('seconds').textContent = s;
+
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('date-display').textContent = now.toLocaleDateString(undefined, options);
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
+
+</body>
+</html>
+
+<!--     ᲼╱|、 
+         (˚ˎ。7
+         |、˜〵 
+         じしˍ,)ノ KIBBY GROUP!-->
